@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Fractal Terrain Generator</title>
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="lib/fd-slider/fd-slider.css" />
+  <link rel="stylesheet" href="lib/fd-slider/fd-slider-tooltip.css" />
+  <script type="text/javascript" src="lib/Three.js"></script>
+  <script type="text/javascript" src="lib/RequestAnimationFrame.js"></script>
+  <script type="text/javascript" src="lib/Detector.js"></script>
+  <script type="text/javascript" src="lib/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="lib/jquery.pubsub.js"></script>
+  <script type="text/javascript" src="lib/fd-slider/fd-slider.js"></script>
+  <script type="text/javascript" src="lib/terrain.js"></script>
+</head>
+
+<body>
+  <div id="sidebar">
+    <div id="sidebar-inner">
+      <h1 id="title">Fractal Art</h1>
+
+
+
+
+      <form id="opts">
+        <label for="size">Detalhamento:</label>
+        <select class="opt" id="opt-size" name="size">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="4">4</option>
+          <option value="8">8</option>
+          <option value="16">16</option>
+          <option value="32">32</option>
+          <option value="64" selected="yes">64</option>
+          <option value="128">128</option>
+        </select>
+
+        <label for="smoothness">Suavidade:</label>
+        <input class="opt" id="opt-smoothness" type="text" name="smoothness" min="0.1" max="5" step="0.1"
+          value="1.0"><br>
+
+        <label for="z-scale">Profundidade:</label>
+        <input class="opt" id="opt-z" type="text" name="z-scale" min="0" max="500" step="20" value="340"><br>
+
+        <a id="new" href="#">Novo</a>
+      </form>
+      <br>
+      <div >
+        <label for="size">
+          <h2>
+            
+            A̅̔̽̇͞r҇̎̆͑͒́t̛̋̎̎̌ė͊͊͂͝ ë̐͛͠ i̔̾̓́͞n̂̋̆͆͡t͌̚͝e̛̒͆͆͊r̛̎̾̈́̋n҇̾͐̀̐ȇ̇́̉̿͞t҇͊̄ ś͆̈́͒̄͡e̛͗̈
+            <br><br>
+            ë̀͗̍͋͠ň̀̇͝c͒̔̋͠ơ̿̓̄́̚n̅̈́̓͞t̛́̈́̏̌̎r͂́͆͝a̅̐͂͐̚͞m̒̑̕ n͗̓͆͠u҇̐͋̈́͌̚m͊̏͐͝
+            <br><br>
+            e͗̂̔̚͞x̛̒͆͐p̏̆͝è͐͒̄͆͞r̛̀̓̈́̓̇i҇̊̀m҇̌͗̒e͐̊̉͡n͋͂͌̿̈͝t͒̊̚͡ŏ̄̄̕
+            <br><br>
+            í͒̌̈́̉͝n̄̊͡ẗ́͋̒̊̌͡ē̐́͡r̅̌̀͠a҇͑̿t̛̉̋͑̓̋i̎́͛͗̚͡v̅̋͞ö́̊̂̌́͞ d̒̇̈́̈͝e͌̉̀̅̏͝
+            <br><br>
+            c̓͛̂͞r̍̀̈̚͞i͋̄̀̌͡a̿̅͡t͒̂̿͐̽͝i҇̽̄͑̓̇v҇̒͊͐i҇͑̆̓d́̆̋̕a̛̿̅͐̚̚d̿̒̽̌̕e͐̓̚͠.҇͑̌̊ Č̓͛͡l͒̓̈́͂͝i͒̀͗͒̊͠q̈́́̋̀͝u͊͊͝e̊͑̿͂͞,͂̎̓̀̕
+            <br><br>
+            t̋́͂̌͠o̒̿̊͝q̌̔̎̊̋͞u҇̊͋e͋̂̈̈͒͝,҇̾̏̑͂ i͒͆̽͗͠n͗̌͐̕t̐̎͠e҇͑̊r̊̍̄͑͗͞a͒̾̑̌̋͞j҇̒̂̓̅a̍͋̚̚͞,̛̾̋͒̀
+            <br><br>
+            c̛͛̌̅o̔͊̚̚͝m̑̌͞p҇̀̐́a҇̌̈̍̅̋r̈̐̒̿̄͡ẗ́͒͌́͠i̿̎̓̎͆͡l̿̑͒̈́͝ḧ̈́̽̕e͌́̒̄͒͝ ȅ̇͝
+            <br><br>
+            p͌̉͠ả̊̒͠r͗̅̋́̌͝t҇̉̎̿̈́í̌̀̾̄͡c̒̃͞i̛͌̽p̾̓̏̊̚͝ě̍͞ d͒͗͝a҇̈̎ ơ͛̍̍̈́b̛͂̒̀r̈́̓́͛͒̕a͌̑͊̀̕ d̐͆̿͝e͋̐̒͋̈́͞
+            <br><br>
+            a҇́̂ř̑̒̄̕t҇̓̆͒e҇̾̊̓.͐̐͠ ̀̑͆͞ 
+            
+            ̓͗͋̀̈́̕Ĕ͋͠M͒͆̕ B̛̈́̄͑R͐̋̾͡È̛͗̒V̀̀̈́͝Ë́͐͝
+          </h2>
+    
+        </label>
+      </div>
+    </div>
+  </div>
+  
+  <div id="container"> </div>
+
+ 
+
+
+  <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript">
+    TerrainController.init();
+  </script>
+</body>
+
+</html>
